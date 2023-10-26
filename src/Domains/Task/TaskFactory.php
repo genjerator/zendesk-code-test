@@ -13,7 +13,20 @@ class TaskFactory implements FactoryInterface
 
     public function createEntity(array $data): EntityInterface
     {
-        // TODO: Implement createEntity() method.
+        $entity = new TaskEntity();
+        if (isset($data['id']) && is_int($data['id'])) {
+            $entity->setId($data['id']);
+        }
+
+        if (isset($data['name']) && is_string($data['name'])) {
+            $entity->setName($data['name']);
+        }
+
+        if (isset($data['description']) && is_string($data['description'])) {
+            $entity->setDescription($data['description']);
+        }
+
+        return $entity;
     }
 
     /**

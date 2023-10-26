@@ -4,19 +4,12 @@ declare(strict_types=1);
 namespace Tymeshift\PhpTest\Domains\Schedule;
 
 use Tymeshift\PhpTest\Components\DatabaseInterface;
-use Tymeshift\PhpTest\Interfaces\EntityInterface;
-use Tymeshift\PhpTest\Interfaces\StorageInterface;
 
 class ScheduleStorage
 {
-    /**
-     * @var DatabaseInterface
-     */
-    private $db;
 
-    public function __construct(DatabaseInterface $database)
+    public function __construct(private DatabaseInterface $db)
     {
-        $this->db = $database;
     }
 
     public function getById(int $id): array

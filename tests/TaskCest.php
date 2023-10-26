@@ -4,31 +4,25 @@ declare(strict_types=1);
 namespace Tests;
 
 use Codeception\Example;
-use Codeception\Test\Unit;
-use Mockery\Mock;
 use Tymeshift\PhpTest\Components\HttpClientInterface;
 use Tymeshift\PhpTest\Domains\Task\TaskCollection;
 use Tymeshift\PhpTest\Domains\Task\TaskFactory;
 use Tymeshift\PhpTest\Domains\Task\TaskRepository;
 use Tymeshift\PhpTest\Domains\Task\TaskStorage;
+use Tymeshift\PhpTest\Exceptions\InvalidCollectionDataProvidedException;
 
 class TaskCest
 {
+    private ?TaskRepository $taskRepository;
 
-    /**
-     * @var TaskRepository
-     */
-    private $taskRepository;
-
-
-    public function _before()
+    public function _before(): void
     {
-        $httpClientMock = \Mockery::mock(HttpClientInterface::class);
-        $storage = new TaskStorage($httpClientMock);
+        $this->httpClientMock = \Mockery::mock(HttpClientInterface::class);
+        $storage = new TaskStorage($this->httpClientMock);
         $this->taskRepository = new TaskRepository($storage, new TaskFactory());
     }
 
-    public function _after()
+    public function _after(): void
     {
         $this->taskRepository = null;
         \Mockery::close();
@@ -36,21 +30,28 @@ class TaskCest
 
     /**
      * @dataProvider tasksDataProvider
+     * @throws InvalidCollectionDataProvidedException
      */
-    public function testGetTasks(Example $example, \UnitTester $tester)
+    public function testGetTasks(Example $example, \UnitTester $tester): void
     {
+        $this->httpClientMock->shouldReceive('request')
+            ->with('GET', sprintf('/%s/%d', TaskStorage::URL_GET_BY_SCHEDULE_ID, 1))
+            ->andReturn(reset($example));
         $tasks = $this->taskRepository->getByScheduleId(1);
         $tester->assertInstanceOf(TaskCollection::class, $tasks);
     }
 
-    public function testGetTasksFailed(\UnitTester $tester)
+    public function testGetTasksFailed(\UnitTester $tester): void
     {
-        $tester->expectThrowable(\Exception::class, function (){
+        $this->httpClientMock->shouldReceive('request')
+            ->with('GET', sprintf('/%s/%d', TaskStorage::URL_GET_BY_SCHEDULE_ID, 4))
+            ->andReturn([]);
+        $tester->expectThrowable(\Exception::class, function () {
             $this->taskRepository->getByScheduleId(4);
         });
     }
 
-    public function tasksDataProvider()
+    public function tasksDataProvider(): array
     {
         return [
             [
