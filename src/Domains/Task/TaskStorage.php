@@ -22,7 +22,6 @@ class TaskStorage
 
     public function getByIds(array $ids): array
     {
-        // TODO: Implement getByIds() method.
         $csvIds = !empty($ids) ? implode(',', $ids) : '';
         return $this->client->request('GET', sprintf('/%s/%s', self::URL_GET_BY_IDS, $csvIds));
     }

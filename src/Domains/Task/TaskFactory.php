@@ -11,7 +11,7 @@ use Tymeshift\PhpTest\Interfaces\FactoryInterface;
 class TaskFactory implements FactoryInterface
 {
 
-    public function createEntity(array $data): EntityInterface
+    public function createEntity(array $data): TaskEntity
     {
         $entity = new TaskEntity();
         if (isset($data['id']) && is_int($data['id'])) {

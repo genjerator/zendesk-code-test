@@ -10,7 +10,7 @@ use Tymeshift\PhpTest\Interfaces\FactoryInterface;
 class ScheduleFactory implements FactoryInterface
 {
 
-    public function createEntity(array $data): EntityInterface
+    public function createEntity(array $data): ScheduleEntity
     {
         $entity = new ScheduleEntity();
         if (isset($data['id']) && is_int($data['id'])) {

@@ -5,30 +5,16 @@ namespace Tymeshift\PhpTest\Domains\Task;
 
 use Tymeshift\PhpTest\Exceptions\InvalidCollectionDataProvidedException;
 use Tymeshift\PhpTest\Exceptions\StorageDataMissingException;
-use Tymeshift\PhpTest\Interfaces\EntityInterface;
 use Tymeshift\PhpTest\Interfaces\RepositoryInterface;
 
 class TaskRepository implements RepositoryInterface
 {
-    /**
-     * @var TaskFactory
-     */
-    private $factory;
-
-    /**
-     * @var TaskStorage
-     */
-    private $storage;
-
-    public function __construct(TaskStorage $storage, TaskFactory $factory)
+    public function __construct(private TaskStorage $storage, private TaskFactory $factory)
     {
-        $this->factory = $factory;
-        $this->storage = $storage;
     }
 
-    public function getById(int $id): EntityInterface
+    public function getById(int $id): TaskEntity
     {
-        // TODO: Implement getById() method.
         $data = $this->storage->getById($id);
         return $this->factory->createEntity($data);
     }
@@ -52,7 +38,7 @@ class TaskRepository implements RepositoryInterface
      */
     public function getByIds(array $ids): TaskCollection
     {
-        // TODO: Implement getByIds() method.
-        return $this->factory->createCollection([]);
+        $data = $this->storage->getByIds($ids);
+        return $this->factory->createCollection($data);
     }
 }

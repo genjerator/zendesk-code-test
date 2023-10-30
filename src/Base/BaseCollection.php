@@ -21,6 +21,7 @@ abstract class BaseCollection implements IteratorAggregate, Countable, ArrayAcce
     /**
      * BaseCollection constructor.
      * @param array $data
+     * @throws InvalidCollectionDataProvidedException
      */
     public function __construct(array $data = [])
     {

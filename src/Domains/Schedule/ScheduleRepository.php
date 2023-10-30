@@ -8,14 +8,14 @@ use Tymeshift\PhpTest\Interfaces\FactoryInterface;
 
 class ScheduleRepository
 {
-    public function __construct(private ScheduleStorage $storage, private FactoryInterface $factory)
+    public function __construct(private ScheduleStorage $storage, private ScheduleFactory $factory)
     {
     }
 
     /**
      * @throws StorageDataMissingException
      */
-    public function getById(int $id):EntityInterface
+    public function getById(int $id):ScheduleEntity
     {
         $data = $this->storage->getById($id);
         if(empty($data)){
