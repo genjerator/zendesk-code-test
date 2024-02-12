@@ -22,6 +22,18 @@ class TaskFactory implements FactoryInterface
             $entity->setName($data['name']);
         }
 
+        if (isset($data['start_time']) && is_string($data['start_time'])) {
+            $entity->setStartTime(intval($data['start_time']));
+        }
+
+        if (isset($data['duration']) && is_string($data['duration'])) {
+            $entity->setStartTime(intval($data['duration']));
+        }
+
+        if (isset($data['schedule_id']) && is_string($data['schedule_id'])) {
+            $entity->setStartTime(intval($data['schedule_id']));
+        }
+
         if (isset($data['description']) && is_string($data['description'])) {
             $entity->setDescription($data['description']);
         }

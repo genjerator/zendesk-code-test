@@ -35,10 +35,14 @@ class TaskRepository implements RepositoryInterface
 
     /**
      * @throws InvalidCollectionDataProvidedException
+     * @throws StorageDataMissingException
      */
     public function getByIds(array $ids): TaskCollection
     {
         $data = $this->storage->getByIds($ids);
+        if(empty($data)){
+            throw new StorageDataMissingException("test");
+        }
         return $this->factory->createCollection($data);
     }
 }

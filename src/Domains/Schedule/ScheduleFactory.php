@@ -2,9 +2,6 @@
 
 namespace Tymeshift\PhpTest\Domains\Schedule;
 
-use Cassandra\Date;
-use Tymeshift\PhpTest\Interfaces\CollectionInterface;
-use Tymeshift\PhpTest\Interfaces\EntityInterface;
 use Tymeshift\PhpTest\Interfaces\FactoryInterface;
 
 class ScheduleFactory implements FactoryInterface

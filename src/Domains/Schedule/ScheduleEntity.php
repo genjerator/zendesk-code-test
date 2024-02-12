@@ -33,6 +33,16 @@ class ScheduleEntity implements EntityInterface
      */
     private array $items;
 
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
+    public function setItems(array $items): void
+    {
+        $this->items = $items;
+    }
+
     /**
      * @return int
      */

@@ -3,8 +3,6 @@
 namespace Tymeshift\PhpTest\Domains\Schedule;
 
 use Tymeshift\PhpTest\Exceptions\StorageDataMissingException;
-use Tymeshift\PhpTest\Interfaces\EntityInterface;
-use Tymeshift\PhpTest\Interfaces\FactoryInterface;
 
 class ScheduleRepository
 {
